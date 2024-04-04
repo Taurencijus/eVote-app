@@ -6,13 +6,11 @@ import java.util.List;
 
 public interface ElectionService {
 
-    ElectionDto createElection(ElectionDto election);
+    ElectionDto createElection(ElectionDto electionDto);
 
     List<ElectionDto> findAllElections();
 
     ElectionDto findElectionById(Long id);
-
-    ElectionDto updateElection(ElectionDto election);
 
     void deleteElection(Long id);
 
