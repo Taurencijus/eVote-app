@@ -12,9 +12,10 @@ public interface VoteOptionService {
 
     VoteOptionDto findVoteOptionById(Long id);
 
+    List<VoteOptionDto> findVoteOptionsByElectionId(Long electionId);
+
     VoteOptionDto updateVoteOption(VoteOptionDto voteOptionDto);
 
     void deleteVoteOption(Long id);
 
-    //List<VoteOptionDto> findVoteOptionsByElectionId(Long electionId);
 }

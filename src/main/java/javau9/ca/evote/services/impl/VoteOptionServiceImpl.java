@@ -51,6 +51,15 @@ public class VoteOptionServiceImpl implements VoteOptionService {
     }
 
     @Override
+    public List<VoteOptionDto> findVoteOptionsByElectionId(Long electionId) {
+        List<VoteOption> voteOptions = voteOptionRepository.findByElectionId(electionId);
+        return voteOptions.stream()
+                .map(MapperUtils::convertToVoteOptionDto)
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
     public VoteOptionDto updateVoteOption(VoteOptionDto voteOptionDto) {
         VoteOption existingVoteOption = voteOptionRepository.findById(voteOptionDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("VoteOption not found with ID: " + voteOptionDto.getId()));
