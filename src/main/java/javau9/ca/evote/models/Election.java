@@ -27,6 +27,9 @@ public class Election {
     @OneToMany(mappedBy = "election", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<VoteOption> voteOptions = new HashSet<>();
 
+    @OneToMany(mappedBy = "election", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Vote> votes = new HashSet<>();
+
     public Election() {}
 
     public Election(String title, String description, LocalDateTime startTime, LocalDateTime endTime, Set<VoteOption> voteOptions) {
@@ -85,6 +88,14 @@ public class Election {
         this.voteOptions = voteOptions;
     }
 
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
+    }
+
     public void addVoteOption(VoteOption voteOption) {
         voteOptions.add(voteOption);
         voteOption.setElection(this);
@@ -93,5 +104,15 @@ public class Election {
     public void removeVoteOption(VoteOption voteOption) {
         voteOptions.remove(voteOption);
         voteOption.setElection(null);
+    }
+
+    public void addVote(Vote vote) {
+        this.votes.add(vote);
+        vote.setElection(this);
+    }
+
+    public void removeVote(Vote vote) {
+        this.votes.remove(vote);
+        vote.setElection(null);
     }
 }

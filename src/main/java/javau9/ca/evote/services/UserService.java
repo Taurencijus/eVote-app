@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserService {
 
-    UserDto registerUser(UserDto user);
+   // UserDto registerUser(UserDto user);
 
     List<UserDto> findAllUsers();
 

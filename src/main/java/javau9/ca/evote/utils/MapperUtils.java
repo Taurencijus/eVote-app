@@ -1,7 +1,12 @@
 package javau9.ca.evote.utils;
 
 import javau9.ca.evote.dto.ElectionDto;
+import javau9.ca.evote.dto.UserDto;
+import javau9.ca.evote.dto.VoteDto;
+import javau9.ca.evote.dto.VoteOptionDto;
 import javau9.ca.evote.models.Election;
+import javau9.ca.evote.models.User;
+import javau9.ca.evote.models.Vote;
 import javau9.ca.evote.models.VoteOption;
 
 import java.util.stream.Collectors;
@@ -42,7 +47,77 @@ public class MapperUtils {
         return election;
     }
 
+    public static UserDto convertToUserDto(User user) {
+        if (user == null) {
+            return null;
+        }
+        UserDto dto = new UserDto();
+        dto.setId(user.getId());
+        dto.setUserName(user.getUserName());
+        dto.setEmail(user.getEmail());
+        dto.setType(user.getType());
 
+        return dto;
+    }
 
+    public static User convertToUserEntity(UserDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        User user = new User();
+        user.setId(dto.getId());
+        user.setUserName(dto.getUserName());
+        user.setEmail(dto.getEmail());
+        //user.setPassword(dto.getPassword()); // Need to ensure this is handled securely, e.g., encoded
+        user.setType(dto.getType());
 
+        return user;
+    }
+
+    public static VoteOptionDto convertToVoteOptionDto(VoteOption voteOption) {
+        if (voteOption == null) {
+            return null;
+        }
+        VoteOptionDto dto = new VoteOptionDto();
+        dto.setId(voteOption.getId());
+        dto.setName(voteOption.getName());
+        dto.setDescription(voteOption.getDescription());
+        if (voteOption.getElection() != null) {
+            dto.setElectionId(voteOption.getElection().getId());
+        }
+        return dto;
+    }
+
+    public static VoteOption convertToVoteOptionEntity(VoteOptionDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        VoteOption voteOption = new VoteOption();
+        voteOption.setId(dto.getId()); // Need to be cautious: setting ID is typically for updates
+        voteOption.setName(dto.getName());
+        voteOption.setDescription(dto.getDescription());
+
+        return voteOption;
+    }
+
+    public static VoteDto convertToVoteDto(Vote vote) {
+        if (vote == null) {
+            return null;
+        }
+        VoteDto dto = new VoteDto();
+        dto.setId(vote.getId());
+        dto.setUserId(vote.getUser() != null ? vote.getUser().getId() : null);
+        dto.setVoteOptionId(vote.getVoteOption() != null ? vote.getVoteOption().getId() : null);
+        dto.setTimestamp(vote.getTimestamp());
+        return dto;
+    }
+
+    public static Vote convertToVoteEntity(VoteDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        Vote vote = new Vote();
+        vote.setTimestamp(dto.getTimestamp());
+        return vote;
+    }
 }

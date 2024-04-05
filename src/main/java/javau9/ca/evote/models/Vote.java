@@ -19,6 +19,10 @@ public class Vote {
     @JoinColumn(name = "vote_option_id", nullable = false)
     private VoteOption voteOption;
 
+    @ManyToOne
+    @JoinColumn(name = "election_id", nullable = false)
+    private Election election;
+
     @NotNull
     private LocalDateTime timestamp;
 
@@ -60,5 +64,13 @@ public class Vote {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Election getElection() {
+        return election;
+    }
+
+    public void setElection(Election election) {
+        this.election = election;
     }
 }

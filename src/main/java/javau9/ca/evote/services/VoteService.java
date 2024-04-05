@@ -7,13 +7,15 @@ import java.util.Map;
 
 public interface VoteService {
 
-    VoteDto castVote(VoteDto voteDto) throws Exception;
+    VoteDto castVote(VoteDto voteDto);
 
     List<VoteDto> findAllVotesByElectionId(Long electionId);
 
     Map<Long, Integer> countVotesByElectionId(Long electionId);
 
-    List<VoteDto> findAllVotesByUserId(Long userId);
+    //List<VoteDto> findAllVotesByUserId(Long userId);
+
+    void deleteVote(Long voteId);
 
 
 }

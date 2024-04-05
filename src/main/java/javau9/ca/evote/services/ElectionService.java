@@ -12,6 +12,8 @@ public interface ElectionService {
 
     ElectionDto findElectionById(Long id);
 
+    ElectionDto updateElection(ElectionDto electionDto);
+
     void deleteElection(Long id);
 
     void startElection(Long id);

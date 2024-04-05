@@ -16,5 +16,5 @@ public interface VoteOptionService {
 
     void deleteVoteOption(Long id);
 
-    List<VoteOptionDto> findVoteOptionsByElectionId(Long electionId);
+    //List<VoteOptionDto> findVoteOptionsByElectionId(Long electionId);
 }
