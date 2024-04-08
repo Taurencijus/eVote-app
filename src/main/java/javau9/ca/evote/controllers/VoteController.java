@@ -3,6 +3,7 @@ package javau9.ca.evote.controllers;
 
 import javau9.ca.evote.dto.VoteDto;
 import javau9.ca.evote.services.VoteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ public class VoteController {
 
     VoteService voteService;
 
+    @Autowired
     public VoteController(VoteService voteService) {
         this.voteService = voteService;
     }
