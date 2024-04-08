@@ -43,7 +43,7 @@ public class ElectionControllerTests {
         given(electionService.createElection(electionDto)).willReturn(electionDto);
 
         mockMvc.perform(post("/api/elections")
-                        .contentType(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(electionDto)))
                 .andExpect(status().isCreated());
     }
@@ -54,7 +54,7 @@ public class ElectionControllerTests {
         given(electionService.findAllElections()).willReturn(elections);
 
         mockMvc.perform(get("/api/elections")
-                .contentType(MediaType.APPLICATION_JSON))
+                    .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", is(elections.size())));
     }
@@ -67,7 +67,7 @@ public class ElectionControllerTests {
         given(electionService.findElectionById(id)).willReturn(electionDto);
 
         mockMvc.perform(get("/api/elections/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
+                    .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(id.intValue())));
     }
@@ -81,8 +81,8 @@ public class ElectionControllerTests {
                 .willAnswer(invocation -> invocation.getArgument(0));
 
         mockMvc.perform(post("/api/elections/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(electionDto)))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(electionDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title", is(electionDto.getTitle())));
     }
