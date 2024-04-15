@@ -2,18 +2,24 @@ package javau9.ca.evote.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-public class User {
+@Table(name = "user")
+public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "User Name is mandatory")
-    private String userName;
+    private String username;
     @NotBlank(message = "Email is mandatory")
     private String email;
     @NotBlank(message = "Password is mandatory")
@@ -25,12 +31,46 @@ public class User {
 
     public User() {}
 
-    public User(String userName, String email, String password, UserType type, Set<Vote> votes) {
-        this.userName = userName;
+    public User(String username, String email, String password, UserType type, Set<Vote> votes) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.type = type;
         this.votes = votes;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(type.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public void addVote(Vote vote) {
+        votes.add(vote);
+        vote.setUser(this);
+    }
+    public void removeVote(Vote vote) {
+        votes.remove(vote);
+        vote.setUser(null);
     }
 
     public Long getId() {
@@ -41,12 +81,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public String getEmail() {
@@ -80,12 +120,7 @@ public class User {
     public void setVotes(Set<Vote> votes) {
         this.votes = votes;
     }
-    public void addVote(Vote vote) {
-        votes.add(vote);
-        vote.setUser(this);
-    }
-    public void removeVote(Vote vote) {
-        votes.remove(vote);
-        vote.setUser(null);
-    }
+
+
+
 }

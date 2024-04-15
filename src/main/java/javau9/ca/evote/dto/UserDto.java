@@ -5,16 +5,16 @@ import javau9.ca.evote.models.UserType;
 public class UserDto {
 
     private Long id;
-    private String userName;
+    private String username;
     private String email;
     private String password;
     private UserType type;
 
     public UserDto() {}
 
-    public UserDto(Long id, String userName, String email, UserType type) {
+    public UserDto(Long id, String username, String email, UserType type) {
         this.id = id;
-        this.userName = userName;
+        this.username = username;
         this.email = email;
         this.type = type;
     }
@@ -27,12 +27,12 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

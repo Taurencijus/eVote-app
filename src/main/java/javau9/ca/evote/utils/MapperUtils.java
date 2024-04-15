@@ -53,7 +53,7 @@ public class MapperUtils {
         }
         UserDto dto = new UserDto();
         dto.setId(user.getId());
-        dto.setUserName(user.getUserName());
+        dto.setUsername(user.getUsername());
         dto.setEmail(user.getEmail());
         dto.setType(user.getType());
 
@@ -66,7 +66,7 @@ public class MapperUtils {
         }
         User user = new User();
         user.setId(dto.getId());
-        user.setUserName(dto.getUserName());
+        user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         //user.setPassword(dto.getPassword()); // Need to ensure this is handled securely, e.g., encoded
         user.setType(dto.getType());

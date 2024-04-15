@@ -63,7 +63,7 @@ public class UserControllerTests {
         Long id = 1L;
         UserDto userDto = new UserDto();
         userDto.setId(id);
-        userDto.setUserName("Updated Name");
+        userDto.setUsername("Updated Name");
 
         given(userService.updateUser(any(UserDto.class))).willAnswer(invocation -> invocation.getArgument(0));
 
@@ -71,7 +71,7 @@ public class UserControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userDto)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName", is(userDto.getUserName())));
+                .andExpect(jsonPath("$.username", is(userDto.getUsername())));
     }
 
     @Test
