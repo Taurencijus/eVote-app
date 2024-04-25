@@ -1,4 +1,4 @@
-package javau9.ca.evote.security.config;
+package javau9.ca.evote.security.configurations;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

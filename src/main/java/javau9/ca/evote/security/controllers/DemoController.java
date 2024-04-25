@@ -1,4 +1,4 @@
-package javau9.ca.evote.security.controller;
+package javau9.ca.evote.security.controllers;
 
 
 import org.springframework.http.ResponseEntity;

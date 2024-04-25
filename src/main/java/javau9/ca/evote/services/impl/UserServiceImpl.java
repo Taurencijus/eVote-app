@@ -23,15 +23,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-
-    /*@Override
-    public UserDto registerUser(UserDto userDto) {
-        User user = MapperUtils.convertToUserEntity(userDto);
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        User savedUser = userRepository.save(user);
-        return MapperUtils.convertToUserDto(savedUser);
-    }*/
-
     @Override
     public List<UserDto> findAllUsers() {
         return userRepository.findAll().stream()

@@ -1,7 +1,7 @@
-package javau9.ca.evote.security.config;
+package javau9.ca.evote.security.configurations;
 
-import javau9.ca.evote.security.filter.JwtAuthenticationFilter;
-import javau9.ca.evote.security.service.UserDetailsServiceImpl;
+import javau9.ca.evote.security.filters.JwtAuthenticationFilter;
+import javau9.ca.evote.security.services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -37,9 +37,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-
-
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(

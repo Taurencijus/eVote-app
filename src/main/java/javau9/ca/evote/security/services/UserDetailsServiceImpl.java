@@ -1,4 +1,4 @@
-package javau9.ca.evote.security.service;
+package javau9.ca.evote.security.services;
 
 import javau9.ca.evote.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

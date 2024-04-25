@@ -1,4 +1,4 @@
-package javau9.ca.evote.security.service;
+package javau9.ca.evote.security.services;
 
 
 import io.jsonwebtoken.Claims;
@@ -20,16 +20,16 @@ public class JwtService {
 
 
 
-    public boolean isValid(String token, UserDetails user) {
+    public boolean isTokenValid(String token, UserDetails user) {
         String username = extractUsername(token);
         return (username.equals(user.getUsername())) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        return extractExpirationDate(token).before(new Date());
     }
 
-    private Date extractExpiration(String token) {
+    private Date extractExpirationDate(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 

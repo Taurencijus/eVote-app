@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface UserService {
 
-   // UserDto registerUser(UserDto user);
-
     List<UserDto> findAllUsers();
 
     UserDto findUserById(Long id);

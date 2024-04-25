@@ -1,9 +1,9 @@
-package javau9.ca.evote.security.controller;
+package javau9.ca.evote.security.controllers;
 
 
 import javau9.ca.evote.models.User;
-import javau9.ca.evote.security.model.AuthenticationResponse;
-import javau9.ca.evote.security.service.AuthenticationService;
+import javau9.ca.evote.security.models.AuthenticationResponse;
+import javau9.ca.evote.security.services.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

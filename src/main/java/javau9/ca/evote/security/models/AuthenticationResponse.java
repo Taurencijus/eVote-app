@@ -1,4 +1,4 @@
-package javau9.ca.evote.security.model;
+package javau9.ca.evote.security.models;
 
 public class AuthenticationResponse {
 
