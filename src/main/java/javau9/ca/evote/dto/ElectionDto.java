@@ -1,14 +1,23 @@
 package javau9.ca.evote.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class ElectionDto {
 
     private Long id;
+    @NotBlank(message = "Title is mandatory")
+    @Size(min = 3, max = 50, message = "Title must be between 3 and 50 characters")
     private String title;
+    @NotBlank(message = "Description is mandatory")
+    @Size(min = 3, max = 500, message = "Description mus be between 3 and 500 characters")
     private String description;
+    @NotBlank(message = "Start time is mandatory")
     private LocalDateTime startTime;
+    @NotBlank(message = "End time is mandatory")
     private LocalDateTime endTime;
     private List<Long> voteOptionIds;
 

@@ -1,6 +1,7 @@
 package javau9.ca.evote.controllers;
 
 
+import jakarta.validation.Valid;
 import javau9.ca.evote.dto.VoteOptionDto;
 import javau9.ca.evote.services.VoteOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class VoteOptionController {
     }
 
     @PostMapping
-    public ResponseEntity<VoteOptionDto> createVoteOption(@RequestBody VoteOptionDto voteOptionDto) {
+    public ResponseEntity<VoteOptionDto> createVoteOption(@Valid @RequestBody VoteOptionDto voteOptionDto) {
         VoteOptionDto createdVoteOption = voteOptionService.createVoteOption(voteOptionDto);
         return new ResponseEntity<>(createdVoteOption, HttpStatus.CREATED);
     }
@@ -41,7 +42,7 @@ public class VoteOptionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VoteOptionDto> updateVoteOption(@PathVariable Long id,
+    public ResponseEntity<VoteOptionDto> updateVoteOption(@Valid @PathVariable Long id,
                                                           @RequestBody VoteOptionDto voteOptionDto) {
         voteOptionDto.setId(id);
         VoteOptionDto updatedVoteOption = voteOptionService.updateVoteOption(voteOptionDto);

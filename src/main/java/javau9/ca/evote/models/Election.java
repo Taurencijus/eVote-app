@@ -4,6 +4,7 @@ package javau9.ca.evote.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -17,8 +18,10 @@ public class Election {
     private Long id;
 
     @NotBlank(message = "Title is mandatory")
+    @Size(min = 3, max = 50, message = "Title must be between 3 and 50 characters")
     private String title;
     @NotBlank(message = "Description is mandatory")
+    @Size(min = 3, max = 500, message = "Description must be up to 500 characters")
     private String description;
     @NotNull(message = "Start time is mandatory")
     private LocalDateTime startTime;

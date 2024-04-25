@@ -1,9 +1,16 @@
 package javau9.ca.evote.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class VoteOptionDto {
 
     private Long id;
+    @NotBlank(message = "Name is mandatory")
+    @Size(min = 3, max = 50, message = "Name has to be between 3 and 50 characters")
     private String name;
+    @NotBlank(message = "Description is mandatory")
+    @Size(min = 3, max = 500, message = "Description has to be between 3 and 500 characters")
     private String description;
     private Long electionId;
 

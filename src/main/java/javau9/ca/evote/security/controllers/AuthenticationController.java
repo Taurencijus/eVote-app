@@ -1,6 +1,7 @@
 package javau9.ca.evote.security.controllers;
 
 
+import jakarta.validation.Valid;
 import javau9.ca.evote.models.User;
 import javau9.ca.evote.security.models.AuthenticationResponse;
 import javau9.ca.evote.security.services.AuthenticationService;
@@ -19,12 +20,12 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody User request) {
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody User request) {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody User request) {
+    public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody User request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
 
     }

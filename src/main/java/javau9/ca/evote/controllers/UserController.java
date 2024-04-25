@@ -1,6 +1,7 @@
 package javau9.ca.evote.controllers;
 
 
+import jakarta.validation.Valid;
 import javau9.ca.evote.dto.UserDto;
 import javau9.ca.evote.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> updateUser(@Valid @PathVariable Long id, @RequestBody UserDto userDto) {
         userDto.setId(id);
         UserDto updatedUser = userService.updateUser(userDto);
         return ResponseEntity.ok(updatedUser);

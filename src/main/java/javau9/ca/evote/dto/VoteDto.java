@@ -1,5 +1,7 @@
 package javau9.ca.evote.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 public class VoteDto {
@@ -7,6 +9,7 @@ public class VoteDto {
     private Long id;
     private Long userId;
     private Long voteOptionId;
+    @NotNull
     private LocalDateTime timestamp;
 
     public VoteDto() {}

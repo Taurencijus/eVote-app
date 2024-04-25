@@ -1,7 +1,10 @@
 package javau9.ca.evote.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,8 +22,11 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "User Name is mandatory")
+    @Size(min = 3, max = 15, message = "Username must be between 3 and 15 characters")
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username can only use letters, capital letters, numbers")
     private String username;
     @NotBlank(message = "Email is mandatory")
+    @Email(message = "Email has to be valid")
     private String email;
     @NotBlank(message = "Password is mandatory")
     private String password;

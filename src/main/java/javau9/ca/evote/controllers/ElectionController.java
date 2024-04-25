@@ -1,6 +1,7 @@
 package javau9.ca.evote.controllers;
 
 
+import jakarta.validation.Valid;
 import javau9.ca.evote.dto.ElectionDto;
 import javau9.ca.evote.services.ElectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class ElectionController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<ElectionDto> updateElection(@PathVariable Long id, @RequestBody ElectionDto electionDto) {
+    public ResponseEntity<ElectionDto> updateElection(@Valid @PathVariable Long id, @RequestBody ElectionDto electionDto) {
         electionDto.setId(id);
         ElectionDto updatedElection = electionService.updateElection(electionDto);
         return ResponseEntity.ok(updatedElection);
@@ -55,13 +56,13 @@ public class ElectionController {
     }
 
     @PostMapping("/{id}/start")
-    public ResponseEntity<Void> startElection(@PathVariable Long id) {
+    public ResponseEntity<Void> startElection(@Valid @PathVariable Long id) {
         electionService.startElection(id);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{id}/end")
-    public ResponseEntity<Void> endElection(@PathVariable Long id) {
+    public ResponseEntity<Void> endElection(@Valid @PathVariable Long id) {
         electionService.endElection(id);
         return ResponseEntity.ok().build();
     }

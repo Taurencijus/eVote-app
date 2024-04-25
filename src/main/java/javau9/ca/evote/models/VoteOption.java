@@ -2,6 +2,7 @@ package javau9.ca.evote.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,8 +15,10 @@ public class VoteOption {
     private Long id;
 
     @NotBlank(message = "Name is mandatory")
+    @Size(min = 3, max = 50, message = "Name has to be between 3 and 50 characters")
     private String name;
     @NotBlank(message = "Description is mandatory")
+    @Size(min = 3, max = 500, message = "Description has to be between 3 and 500 characters")
     private String description;
 
     @OneToMany(mappedBy = "voteOption", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
