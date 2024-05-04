@@ -2,7 +2,9 @@ package javau9.ca.evote.security.services;
 
 
 import javau9.ca.evote.models.User;
+import javau9.ca.evote.models.UserType;
 import javau9.ca.evote.repositories.UserRepository;
+import javau9.ca.evote.security.dto.LoginRequestDto;
 import javau9.ca.evote.security.models.AuthenticationResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,16 +38,15 @@ private final AuthenticationManager authenticationManager;
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
 
-        user.setType(request.getType());
-
+        user.setType(UserType.USER);
         user = userRepository.save(user);
 
         String token = jwtService.generateToken(user);
 
-        return new AuthenticationResponse(token);
+        return new AuthenticationResponse(token, user.getType().name());
     }
 
-    public AuthenticationResponse authenticate(User request) {
+    public AuthenticationResponse authenticate(LoginRequestDto request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -56,6 +57,6 @@ private final AuthenticationManager authenticationManager;
         User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
         String token = jwtService.generateToken(user);
 
-        return new AuthenticationResponse(token);
+        return new AuthenticationResponse(token, user.getType().name());
     }
 }

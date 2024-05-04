@@ -7,6 +7,7 @@ import javau9.ca.evote.repositories.UserRepository;
 import javau9.ca.evote.services.UserService;
 import javau9.ca.evote.utils.MapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +18,23 @@ public class UserServiceImpl implements UserService {
 
 
     UserRepository userRepository;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public UserDto createUser(UserDto userDto) {
+        if (userRepository.existsByUsername(userDto.getUsername())) {
+            throw new IllegalStateException("Username is already taken");
+        }
+        User user = MapperUtils.convertToUserEntity(userDto);
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        User savedUser = userRepository.save(user);
+        return MapperUtils.convertToUserDto(savedUser);
     }
 
     @Override
