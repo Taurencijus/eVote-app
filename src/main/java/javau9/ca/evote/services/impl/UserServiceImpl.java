@@ -7,8 +7,10 @@ import javau9.ca.evote.repositories.UserRepository;
 import javau9.ca.evote.services.UserService;
 import javau9.ca.evote.utils.MapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserDto userDto) {
         if (userRepository.existsByUsername(userDto.getUsername())) {
-            throw new IllegalStateException("Username is already taken");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is already taken");
         }
         User user = MapperUtils.convertToUserEntity(userDto);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));

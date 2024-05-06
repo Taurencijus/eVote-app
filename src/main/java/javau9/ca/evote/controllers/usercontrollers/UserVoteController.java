@@ -1,5 +1,4 @@
-package javau9.ca.evote.controllers;
-
+package javau9.ca.evote.controllers.usercontrollers;
 
 import jakarta.validation.Valid;
 import javau9.ca.evote.dto.VoteDto;
@@ -9,18 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-
 @RestController
 @CrossOrigin
 @RequestMapping("/api/votes")
-public class VoteController {
+public class UserVoteController {
 
     VoteService voteService;
 
     @Autowired
-    public VoteController(VoteService voteService) {
+    public UserVoteController(VoteService voteService) {
         this.voteService = voteService;
     }
 
@@ -30,22 +26,9 @@ public class VoteController {
         return new ResponseEntity<>(castedVote, HttpStatus.CREATED);
     }
 
-    @GetMapping("/election/{electionId}")
-    public ResponseEntity<List<VoteDto>> getAllVotesByElectionId(@PathVariable Long electionId) {
-        List<VoteDto> votes = voteService.findAllVotesByElectionId(electionId);
-        return ResponseEntity.ok(votes);
-    }
-
-    @GetMapping("/count/election/{electionId}")
-    public ResponseEntity<Map<Long, Integer>> countVotesByElectionId(@PathVariable Long electionId) {
-        Map<Long, Integer> voteCounts = voteService.countVotesByElectionId(electionId);
-        return ResponseEntity.ok(voteCounts);
-    }
-
     @DeleteMapping("/{voteId}")
-    public ResponseEntity<Void> deleteVote(@PathVariable Long voteId) {
+    public ResponseEntity<Void> deleteVoteById(@PathVariable Long voteId) {
         voteService.deleteVote(voteId);
         return ResponseEntity.noContent().build();
     }
-
 }

@@ -28,9 +28,9 @@ public class VoteOptionServiceImpl implements VoteOptionService {
 
     @Override
     public VoteOptionDto createVoteOption(VoteOptionDto voteOptionDto) {
-        VoteOption voteOption = MapperUtils.convertToVoteOptionEntity(voteOptionDto);
         Election election = electionRepository.findById(voteOptionDto.getElectionId())
                 .orElseThrow(() -> new RuntimeException("Election not found with ID: " + voteOptionDto.getElectionId()));
+        VoteOption voteOption = MapperUtils.convertToVoteOptionEntity(voteOptionDto);
         voteOption.setElection(election);
         VoteOption savedVoteOption = voteOptionRepository.save(voteOption);
         return MapperUtils.convertToVoteOptionDto(savedVoteOption);
