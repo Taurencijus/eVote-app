@@ -1,16 +1,20 @@
 package javau9.ca.evote.controllers.usercontrollers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import javau9.ca.evote.dto.VoteDto;
+import javau9.ca.evote.exceptions.EntityNotFoundException;
+import javau9.ca.evote.models.User;
 import javau9.ca.evote.services.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/votes")
+@RequestMapping("/api/vote")
 public class UserVoteController {
 
     VoteService voteService;
@@ -20,10 +24,16 @@ public class UserVoteController {
         this.voteService = voteService;
     }
 
-    @PostMapping
-    public ResponseEntity<VoteDto> castVote(@Valid @RequestBody VoteDto voteDto) {
-        VoteDto castedVote = voteService.castVote(voteDto);
-        return new ResponseEntity<>(castedVote, HttpStatus.CREATED);
+    @PostMapping("/{electionId}/{voteOptionId}")
+    public ResponseEntity<?> castVote(@PathVariable Long electionId, @PathVariable Long voteOptionId, @AuthenticationPrincipal User user) {
+        try {
+            VoteDto castedVote = voteService.castVote(user.getId(), voteOptionId, electionId);
+            return new ResponseEntity<>(castedVote, HttpStatus.CREATED);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: " + e.getMessage());
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{voteId}")

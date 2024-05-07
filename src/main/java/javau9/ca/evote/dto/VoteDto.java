@@ -9,14 +9,16 @@ public class VoteDto {
     private Long id;
     private Long userId;
     private Long voteOptionId;
+    private Long electionId;
     @NotNull
     private LocalDateTime timestamp;
 
     public VoteDto() {}
 
-    public VoteDto(Long userId, Long voteOptionId, LocalDateTime timestamp) {
+    public VoteDto(Long userId, Long voteOptionId, Long electionId,LocalDateTime timestamp) {
         this.userId = userId;
         this.voteOptionId = voteOptionId;
+        this.electionId = electionId;
         this.timestamp = timestamp;
     }
 
@@ -44,6 +46,14 @@ public class VoteDto {
         this.voteOptionId = voteOptionId;
     }
 
+    public Long getElectionId() {
+        return electionId;
+    }
+
+    public void setElectionId(Long electionId) {
+        this.electionId = electionId;
+    }
+
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
@@ -51,4 +61,5 @@ public class VoteDto {
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
+
 }

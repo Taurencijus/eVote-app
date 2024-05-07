@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface VoteRepository extends JpaRepository<Vote, Long> {
 
+    boolean existsByUserIdAndVoteOption_Election_Id(Long userId, Long electionId);
 
+    boolean existsByUserIdAndElectionId(Long userId, Long electionId);
     @Query("SELECT v FROM Vote v WHERE v.voteOption.election.id = :electionId")
     List<Vote> findByElectionId(@Param("electionId") Long electionId);
 

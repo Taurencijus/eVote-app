@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface VoteService {
 
-    VoteDto castVote(VoteDto voteDto);
+    VoteDto castVote(Long userId, Long voteOptionId, Long electionId);
 
     List<VoteDto> findAllVotesByElectionId(Long electionId);
 

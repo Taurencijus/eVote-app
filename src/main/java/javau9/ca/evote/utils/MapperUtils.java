@@ -8,6 +8,7 @@ import javau9.ca.evote.models.Election;
 import javau9.ca.evote.models.User;
 import javau9.ca.evote.models.Vote;
 import javau9.ca.evote.models.VoteOption;
+import javau9.ca.evote.repositories.VoteRepository;
 
 import java.util.stream.Collectors;
 
@@ -45,6 +46,15 @@ public class MapperUtils {
         election.setEndTime(dto.getEndTime());
 
         return election;
+    }
+
+    public static ElectionDto convertToElectionDtoWithVotingStatus(Election election, Long userId, VoteRepository voteRepository) {
+        ElectionDto dto = convertToElectionDto(election);
+        if (dto != null && userId != null) {
+            boolean hasVoted = voteRepository.existsByUserIdAndElectionId(userId, election.getId());
+            dto.setHasVoted(hasVoted);
+        }
+        return dto;
     }
 
     public static UserDto convertToUserDto(User user) {

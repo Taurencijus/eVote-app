@@ -21,15 +21,18 @@ public class ElectionDto {
     private LocalDateTime endTime;
     private List<Long> voteOptionIds;
 
+    private boolean hasVoted;
+
     public ElectionDto() {}
 
-    public ElectionDto(Long id, String title, String description, LocalDateTime startTime, LocalDateTime endTime, List<Long> voteOptionIds) {
+    public ElectionDto(Long id, String title, String description, LocalDateTime startTime, LocalDateTime endTime, List<Long> voteOptionIds, boolean hasVoted) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
         this.voteOptionIds = voteOptionIds;
+        this.hasVoted = hasVoted;
     }
 
     public Long getId() {
@@ -78,5 +81,13 @@ public class ElectionDto {
 
     public void setVoteOptionIds(List<Long> voteOptionIds) {
         this.voteOptionIds = voteOptionIds;
+    }
+
+    public boolean getHasVoted() {
+        return hasVoted;
+    }
+
+    public void setHasVoted(boolean hasVoted) {
+        this.hasVoted = hasVoted;
     }
 }

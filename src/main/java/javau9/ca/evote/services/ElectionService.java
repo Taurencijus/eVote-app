@@ -8,7 +8,7 @@ public interface ElectionService {
 
     ElectionDto createElection(ElectionDto electionDto);
 
-    List<ElectionDto> findAllElections();
+    List<ElectionDto> findAllElections(Long userId);
 
     ElectionDto findElectionById(Long id);
 

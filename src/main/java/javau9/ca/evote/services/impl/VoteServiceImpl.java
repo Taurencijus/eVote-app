@@ -34,7 +34,7 @@ public class VoteServiceImpl implements VoteService {
         this.voteOptionRepository = voteOptionRepository;
     }
 
-    @Override
+    /*@Override
     public VoteDto castVote(VoteDto voteDto) {
         User user = userRepository.findById(voteDto.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + voteDto.getUserId()));
@@ -44,6 +44,28 @@ public class VoteServiceImpl implements VoteService {
         vote.setUser(user);
         vote.setVoteOption(voteOption);
         vote.setTimestamp(voteDto.getTimestamp() != null ? voteDto.getTimestamp() : LocalDateTime.now());
+        vote = voteRepository.save(vote);
+
+        return MapperUtils.convertToVoteDto(vote);
+    }*/
+
+    public VoteDto castVote(Long userId, Long voteOptionId, Long electionId) {
+        if (voteRepository.existsByUserIdAndVoteOption_Election_Id(userId, electionId)) {
+            throw new IllegalStateException("User has already voted in this election.");
+        }
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
+        VoteOption voteOption = voteOptionRepository.findById(voteOptionId)
+                .orElseThrow(() -> new EntityNotFoundException("Vote Option not found with ID: " + voteOptionId));
+
+        if (!voteOption.getElection().getId().equals(electionId)) {
+            throw new IllegalStateException("The vote option does not belong to this election.");
+        }
+        Vote vote = new Vote();
+        vote.setUser(user);
+        vote.setVoteOption(voteOption);
+        vote.setElection(voteOption.getElection());
+        vote.setTimestamp(LocalDateTime.now());
         vote = voteRepository.save(vote);
 
         return MapperUtils.convertToVoteDto(vote);

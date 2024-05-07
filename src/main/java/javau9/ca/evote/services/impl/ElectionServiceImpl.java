@@ -4,6 +4,7 @@ import javau9.ca.evote.dto.ElectionDto;
 import javau9.ca.evote.exceptions.EntityNotFoundException;
 import javau9.ca.evote.models.Election;
 import javau9.ca.evote.repositories.ElectionRepository;
+import javau9.ca.evote.repositories.VoteRepository;
 import javau9.ca.evote.services.ElectionService;
 import javau9.ca.evote.utils.MapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,12 @@ public class ElectionServiceImpl implements ElectionService {
 
     ElectionRepository electionRepository;
 
+    VoteRepository voteRepository;
+
     @Autowired
-    public ElectionServiceImpl(ElectionRepository electionRepository) {
+    public ElectionServiceImpl(ElectionRepository electionRepository, VoteRepository voteRepository) {
         this.electionRepository = electionRepository;
+        this.voteRepository = voteRepository;
     }
 
     @Override
@@ -32,9 +36,10 @@ public class ElectionServiceImpl implements ElectionService {
     }
 
     @Override
-    public List<ElectionDto> findAllElections() {
-        return electionRepository.findAll().stream()
-                .map(MapperUtils::convertToElectionDto)
+    public List<ElectionDto> findAllElections(Long userId) {
+        List<Election> elections = electionRepository.findAll();
+        return elections.stream()
+                .map(election -> MapperUtils.convertToElectionDtoWithVotingStatus(election, userId, voteRepository))
                 .collect(Collectors.toList());
     }
 
