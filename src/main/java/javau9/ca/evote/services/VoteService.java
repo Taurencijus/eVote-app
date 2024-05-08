@@ -13,8 +13,6 @@ public interface VoteService {
 
     Map<Long, Integer> countVotesByElectionId(Long electionId);
 
-    //List<VoteDto> findAllVotesByUserId(Long userId);
-
     void deleteVote(Long voteId);
 
 

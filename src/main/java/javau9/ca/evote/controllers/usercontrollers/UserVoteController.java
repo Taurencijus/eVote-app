@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/vote")
@@ -40,5 +42,11 @@ public class UserVoteController {
     public ResponseEntity<Void> deleteVoteById(@PathVariable Long voteId) {
         voteService.deleteVote(voteId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/count/by-election/{electionId}")
+    public ResponseEntity<Map<Long, Integer>> countVotesByElectionId(@PathVariable Long electionId) {
+        Map<Long, Integer> voteCounts = voteService.countVotesByElectionId(electionId);
+        return ResponseEntity.ok(voteCounts);
     }
 }

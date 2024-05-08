@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +24,7 @@ public class UserElectionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ElectionDto>> getAllElections() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    public ResponseEntity<List<ElectionDto>> getAllElections(Authentication authentication) {
         User userDetails = (User) authentication.getPrincipal();
         Long userId = userDetails.getId();
         List<ElectionDto> elections = electionService.findAllElections(userId);

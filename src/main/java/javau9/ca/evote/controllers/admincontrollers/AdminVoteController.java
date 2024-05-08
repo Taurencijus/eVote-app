@@ -26,10 +26,4 @@ public class AdminVoteController {
         List<VoteDto> votes = voteService.findAllVotesByElectionId(electionId);
         return ResponseEntity.ok(votes);
     }
-
-    @GetMapping("/count/by-election/{electionId}")
-    public ResponseEntity<Map<Long, Integer>> countVotesByElectionId(@PathVariable Long electionId) {
-        Map<Long, Integer> voteCounts = voteService.countVotesByElectionId(electionId);
-        return ResponseEntity.ok(voteCounts);
-    }
 }
