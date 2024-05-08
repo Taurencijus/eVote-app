@@ -48,7 +48,9 @@ public class MapperUtils {
         return election;
     }
 
-    public static ElectionDto convertToElectionDtoWithVotingStatus(Election election, Long userId, VoteRepository voteRepository) {
+    public static ElectionDto convertToElectionDtoWithVotingStatus(Election election,
+                                                                   Long userId,
+                                                                   VoteRepository voteRepository) {
         ElectionDto dto = convertToElectionDto(election);
         if (dto != null && userId != null) {
             boolean hasVoted = voteRepository.existsByUserIdAndElectionId(userId, election.getId());
@@ -78,7 +80,6 @@ public class MapperUtils {
         user.setId(dto.getId());
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
-        //user.setPassword(dto.getPassword()); // Need to ensure this is handled securely, e.g., encoded
         user.setType(dto.getType());
 
         return user;
@@ -103,7 +104,7 @@ public class MapperUtils {
             return null;
         }
         VoteOption voteOption = new VoteOption();
-        voteOption.setId(dto.getId()); // Need to be cautious: setting ID is typically for updates
+        voteOption.setId(dto.getId());
         voteOption.setName(dto.getName());
         voteOption.setDescription(dto.getDescription());
 

@@ -76,14 +76,4 @@ public class VoteOption {
     public void setElection(Election election) {
         this.election = election;
     }
-
-    public void addVote(Vote vote) {
-        votes.add(vote);
-        vote.setVoteOption(this);
-    }
-
-    public void removeVote(Vote vote) {
-        votes.remove(vote);
-        vote.setVoteOption(null);
-    }
 }

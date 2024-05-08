@@ -34,21 +34,6 @@ public class VoteServiceImpl implements VoteService {
         this.voteOptionRepository = voteOptionRepository;
     }
 
-    /*@Override
-    public VoteDto castVote(VoteDto voteDto) {
-        User user = userRepository.findById(voteDto.getUserId())
-                .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + voteDto.getUserId()));
-        VoteOption voteOption = voteOptionRepository.findById(voteDto.getVoteOptionId())
-                .orElseThrow(() -> new EntityNotFoundException("Vote Option not found with ID: " + voteDto.getVoteOptionId()));
-        Vote vote = new Vote();
-        vote.setUser(user);
-        vote.setVoteOption(voteOption);
-        vote.setTimestamp(voteDto.getTimestamp() != null ? voteDto.getTimestamp() : LocalDateTime.now());
-        vote = voteRepository.save(vote);
-
-        return MapperUtils.convertToVoteDto(vote);
-    }*/
-
     public VoteDto castVote(Long userId, Long voteOptionId, Long electionId) {
         if (voteRepository.existsByUserIdAndVoteOption_Election_Id(userId, electionId)) {
             throw new IllegalStateException("User has already voted in this election.");

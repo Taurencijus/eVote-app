@@ -18,8 +18,6 @@ public class JwtService {
 
     private final String SECRET_KEY = "506243151c823e72c54bf927a0eaaf4c27831c553bd9e222e7c973ae33dc974c";
 
-
-
     public boolean isTokenValid(String token, UserDetails user) {
         String username = extractUsername(token);
         return (username.equals(user.getUsername())) && !isTokenExpired(token);
@@ -67,5 +65,4 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-
 }

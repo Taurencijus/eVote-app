@@ -58,7 +58,6 @@ public class VoteOptionServiceImpl implements VoteOptionService {
                 .collect(Collectors.toList());
     }
 
-
     @Override
     public VoteOptionDto updateVoteOption(VoteOptionDto voteOptionDto) {
         VoteOption existingVoteOption = voteOptionRepository.findById(voteOptionDto.getId())

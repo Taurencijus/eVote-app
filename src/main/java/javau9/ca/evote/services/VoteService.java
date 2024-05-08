@@ -8,12 +8,7 @@ import java.util.Map;
 public interface VoteService {
 
     VoteDto castVote(Long userId, Long voteOptionId, Long electionId);
-
     List<VoteDto> findAllVotesByElectionId(Long electionId);
-
     Map<Long, Integer> countVotesByElectionId(Long electionId);
-
     void deleteVote(Long voteId);
-
-
 }

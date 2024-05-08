@@ -70,15 +70,6 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void addVote(Vote vote) {
-        votes.add(vote);
-        vote.setUser(this);
-    }
-    public void removeVote(Vote vote) {
-        votes.remove(vote);
-        vote.setUser(null);
-    }
-
     public Long getId() {
         return id;
     }
@@ -126,7 +117,4 @@ public class User implements UserDetails {
     public void setVotes(Set<Vote> votes) {
         this.votes = votes;
     }
-
-
-
 }

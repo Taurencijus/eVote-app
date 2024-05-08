@@ -31,6 +31,4 @@ public class UserVoteOptionController {
         List<VoteOptionDto> voteOptions = voteOptionService.findVoteOptionsByElectionId(electionId);
         return ResponseEntity.ok(voteOptions);
     }
-
-
 }
