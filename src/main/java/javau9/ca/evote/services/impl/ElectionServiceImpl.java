@@ -1,9 +1,12 @@
 package javau9.ca.evote.services.impl;
 
 import javau9.ca.evote.dto.ElectionDto;
+import javau9.ca.evote.dto.VoteOptionDto;
 import javau9.ca.evote.exceptions.EntityNotFoundException;
 import javau9.ca.evote.models.Election;
+import javau9.ca.evote.models.VoteOption;
 import javau9.ca.evote.repositories.ElectionRepository;
+import javau9.ca.evote.repositories.VoteOptionRepository;
 import javau9.ca.evote.repositories.VoteRepository;
 import javau9.ca.evote.services.ElectionService;
 import javau9.ca.evote.utils.MapperUtils;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -22,10 +26,14 @@ public class ElectionServiceImpl implements ElectionService {
 
     VoteRepository voteRepository;
 
+    VoteOptionRepository voteOptionRepository;
+
     @Autowired
-    public ElectionServiceImpl(ElectionRepository electionRepository, VoteRepository voteRepository) {
+    public ElectionServiceImpl(ElectionRepository electionRepository, VoteRepository voteRepository,
+                               VoteOptionRepository voteOptionRepository) {
         this.electionRepository = electionRepository;
         this.voteRepository = voteRepository;
+        this.voteOptionRepository = voteOptionRepository;
     }
 
     @Override
@@ -58,8 +66,17 @@ public class ElectionServiceImpl implements ElectionService {
         existingElection.setDescription(electionDto.getDescription());
         existingElection.setStartTime(electionDto.getStartTime());
         existingElection.setEndTime(electionDto.getEndTime());
-
         Election updatedElection = electionRepository.save(existingElection);
+        for(VoteOptionDto voteOption: electionDto.getVoteOptionDtos()){
+            Optional<VoteOption> existingVoteOption = voteOptionRepository.findById(voteOption.getId());
+            if(existingVoteOption.isPresent())
+            {
+                VoteOption option = existingVoteOption.get();
+                option.setDescription(voteOption.getDescription());
+                option.setName(voteOption.getName());
+                voteOptionRepository.save(option);
+            }
+        }
         return MapperUtils.convertToElectionDto(updatedElection);
     }
 
