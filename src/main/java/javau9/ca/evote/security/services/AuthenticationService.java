@@ -56,7 +56,6 @@ private final AuthenticationManager authenticationManager;
                         request.getPassword()
                 )
         );
-
         User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
         String token = jwtService.generateToken(user);
 

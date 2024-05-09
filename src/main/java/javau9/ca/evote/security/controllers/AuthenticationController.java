@@ -23,7 +23,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody User request) {
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody User request) throws Exception {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
